@@ -17,4 +17,11 @@ RSpec.describe 'Encrypt' do
       expect(encrypted_hash.class).to eq(Hash)
     end
   end
+  describe '#generate_offset' do
+    it 'creates an offest for encryption' do
+      encrypt = Encrypt.new
+
+      expect(encrypt.generate_offset).to eq(a: 1, b: 2, c: 3, d: 4)
+    end
+  end
 end
