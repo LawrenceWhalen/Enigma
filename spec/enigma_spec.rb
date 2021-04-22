@@ -10,7 +10,7 @@ RSpec.describe 'Enigma' do
   end
   describe '#encrypt' do
     it 'calls the encrypt class passing the arguments' do
-      Enigma.encrypt('Hello World')
+      Enigma.encrypt('Hello World', '02715', '040895')
 
       expect(Encrypt).to receive(:encrypt_string).with(@encrypt_hash)
     end
