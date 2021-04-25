@@ -10,9 +10,9 @@ RSpec.describe 'Enigma' do
   end
   describe '#encrypt' do
     it 'calls the encrypt class passing the arguments' do
-        actual = Enigma.encrypt('Hello World', '02715', '040895')
+        actual = Enigma.encrypt('Hello World!', '02715', '040895')
 
-        expected = { encryption: ["hello", "world"],
+        expected = { encryption: 'jlieqgthtsa!',
                      key: '02715',
                      date: '040895'}
 
