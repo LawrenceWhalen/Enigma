@@ -36,4 +36,22 @@ RSpec.describe 'Encrypt' do
       expect(actual.class).to eq(String)
     end
   end
+  describe '#letter_substitution' do
+    it 'uses an offset to displace letters in a message' do
+      encrypt = Encrypt.new
+      actual_encryption = encrypt.letter_substitution(message: 'hello world',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+
+      expect(actual_encryption.class).to eq(String)
+      expect(actual_encryption).to eq('jlieqgthtsa')
+    end
+    it 'does not encrypt characters not present in @alphabet' do
+      encrypt = Encrypt.new
+      actual_encryption = encrypt.letter_substitution(message: '/?+=@#',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+
+      expect(actual_encryption.class).to eq(String)
+      expect(actual_encryption).to eq('/?+=@#')
+    end
+  end
 end
