@@ -7,6 +7,7 @@ RSpec.describe 'Decrypt' do
 
       expect(decrypt.class).to eq(Decrypt)
     end
+
   end
   describe '#new_decryption' do
     it 'returns a hash of with the decrypted string' do

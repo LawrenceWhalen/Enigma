@@ -7,6 +7,14 @@ RSpec.describe 'Encrypt' do
 
       expect(encrypt.class).to eq(Encrypt)
     end
+    it 'creates an alphabet instance variable' do
+      encrypt = Encrypt.new
+
+      expected = ('a'..'z').to_a << ' '
+      actual = (encrypt).instance_variable_get(:@alphabet)
+
+      expect(actual).to eq(expected)
+    end
   end
   describe '#new_encryption' do
     it 'returns a hash of with the encrypted string' do
