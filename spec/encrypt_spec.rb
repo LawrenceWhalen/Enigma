@@ -19,9 +19,17 @@ RSpec.describe 'Encrypt' do
   end
   describe '#generate_offset' do
     it 'creates an offest for encryption' do
-      encrypt = Encrypt.new
 
-      expect(encrypt.generate_offset).to eq(a: 1, b: 2, c: 3, d: 4)
+      expect(Encrypt.generate_offset({})).to eq(a: 1, b: 2, c: 3, d: 4)
+    end
+  end
+  describe '#generate_key' do
+    it 'creates a key for encryption' do
+
+      actual = Encrypt.generate_key
+
+      expect(actual.length).to eq(5)
+      expect(actual.class).to eq(Array)
     end
   end
 end

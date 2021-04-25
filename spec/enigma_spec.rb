@@ -11,12 +11,13 @@ RSpec.describe 'Enigma' do
   describe '#encrypt' do
     it 'calls the encrypt class passing the arguments' do
       Enigma.encrypt('Hello World', '02715', '040895')
+      # Enigma.encrypt('Hello World')
 
-      expect(Encrypt).to receive(:new_encryption).with(message: 'Hello World',
+      expect(Encrypt).to receive(:new).with(message: 'Hello World',
                                                        key: '02715',
                                                        date: '040895')
 
-      Enigma.encrypt('Hello World', '02715', '040895')
+      # Enigma.encrypt('Hello World', '02715', '040895')
     end
   end
 end
