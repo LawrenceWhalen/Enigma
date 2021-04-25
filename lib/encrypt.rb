@@ -7,10 +7,12 @@ class Encrypt
 
   def new_encryption(encryption_hash)
     offset = generate_offset(encryption_hash[:key_pass], encryption_hash[:date_pass])
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
     encrypted_message =  letter_substitution(offset: offset,
                                              messsage: encryption_hash[:message].downcase)
-    puts encrypted_message
+    {encryption: encrypted_message,
+     key: encryption_hash[:key_pass],
+     date: encryption_hash[:date_pass]}
   end
 
   def letter_substitution(substitution_hash)
@@ -28,19 +30,21 @@ class Encrypt
   end
 
   def generate_offset(key, offset)
-    squared_offset = offset.to_i ** 2
-    justified_key = key.to_i.rjust(5, "0")
-    {0 => (justified_key[0, 1] + offset[-4]) % 28,
-     1 => (justified_key[1, 2] + offset[-3]) % 28,
-     2 => (justified_key[2, 3] + offset[-2]) % 28,
-     3 => (justified_key[3, 4] + offset[-1]) % 28}
+    # require "pry"; binding.pry
+    squared_offset = (offset.to_i ** 2).to_s
+    justified_key = key.rjust(5, "0")
+    # require "pry"; binding.pry
+    {0 => ((justified_key[0] + justified_key[1]).to_i + offset[-4].to_i) % 28,
+     1 => ((justified_key[1] + justified_key[2]).to_i + offset[-3].to_i) % 28,
+     2 => ((justified_key[2] + justified_key[3]).to_i + offset[-2].to_i) % 28,
+     3 => ((justified_key[3] + justified_key[4]).to_i + offset[-1].to_i) % 28}
   end
 
   def self.generate_key
-    test = []
+    random_key = []
     5.times do
-      test.push((0..9).to_a.sample)
+      random_key.push((0..9).to_a.sample)
     end
-    test.join
+    random_key.join
   end
 end
