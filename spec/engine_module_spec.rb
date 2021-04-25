@@ -13,13 +13,23 @@ RSpec.describe 'EngineModule' do
   describe '#character_shuffle' do
     let(:mock_class) { Class.new { extend EngineModule } }
 
-    it 'takes a hash and encrypts a sting if passed nil' do
+    it 'takes a hash and encrypts a sting if passed 1' do
+      mock_class.instance_variable_set(:@alphabet, ('a'..'z').to_a << ' ')
       actual_encryption = mock_class.character_shuffle(message: 'hello world',
                                                        offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
-                                                       crypt: :+)
+                                                       crypt: 1)
 
       expect(actual_encryption.class).to eq(String)
       expect(actual_encryption).to eq('jlieqgthtsa')
+    end
+    it 'takes a hash and decrypts a sting if passed -1' do
+      mock_class.instance_variable_set(:@alphabet, ('a'..'z').to_a << ' ')
+      actual_encryption = mock_class.character_shuffle(message: 'jlieqgthtsa',
+                                                       offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                                       crypt: -1)
+
+      expect(actual_encryption.class).to eq(String)
+      expect(actual_encryption).to eq('hello world')
     end
   end
 end
