@@ -8,7 +8,7 @@ class Enigma
                    key = Encrypt.generate_key,
                    date = Time.now.strftime('%d%m%y').to_i ** 2)
 
-    encryption = Encrypt.new
-    encryption.new_encryption(message_pass: message, key_pass: key, date_pass: date)
+    @encryption = Encrypt.new
+    @encryption.new_encryption(message_pass: message, key_pass: key, date_pass: date)
   end
 end
