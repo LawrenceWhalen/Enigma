@@ -1,6 +1,3 @@
-# require './lib/encrypt_engine'
-# require './lib/decrypt_engine'
-
 class Enigma
   def initialize
   end
