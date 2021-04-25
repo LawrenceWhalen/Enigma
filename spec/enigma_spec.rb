@@ -10,14 +10,14 @@ RSpec.describe 'Enigma' do
   end
   describe '#encrypt' do
     it 'calls the encrypt class passing the arguments' do
-      EncryptEngine.any_instance.stub(:new_encryption).with(:key_pass => '01234',
+      allow_any_instance_of(EncryptEngine).to receive(:new_encryption).with(:key_pass => '01234',
                                                       :message_pass => 'tim',
                                                       :date_pass => '040895')
 
       Enigma.encrypt('tim', '01234', '040895')
     end
     it 'creates a date if none is provided' do
-      EncryptEngine.any_instance.stub(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
+      allow_any_instance_of(EncryptEngine).to receive(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
                                                       :key_pass => '01234',
                                                       :message_pass => 'tim')
 
@@ -25,7 +25,7 @@ RSpec.describe 'Enigma' do
     end
     it 'creates a key and a date if none are provided' do
       allow(EncryptEngine).to receive(:generate_key).and_return('99999')
-      EncryptEngine.any_instance.stub(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
+      allow_any_instance_of(EncryptEngine).to receive(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
                                                       :key_pass => '99999',
                                                       :message_pass => 'tim')
 
@@ -34,14 +34,14 @@ RSpec.describe 'Enigma' do
   end
   describe '#decrypt' do
     it 'creates a decrypt instance and passes three arguments' do
-      DecryptEngine.any_instance.stub(:new_decryption).with(:key_pass => '01234',
+      allow_any_instance_of(DecryptEngine).to receive(:new_decryption).with(:key_pass => '01234',
                                                       :encryption_pass => 'tim',
                                                       :date_pass => '040895')
 
       Enigma.decrypt('tim', '01234', '040895')
     end
     it 'creates a decrypt instance and creates a date if none is passed' do
-      DecryptEngine.any_instance.stub(:new_decryption).with(:key_pass => '01234',
+      allow_any_instance_of(DecryptEngine).to receive(:new_decryption).with(:key_pass => '01234',
                                                       :encryption_pass => 'tim',
                                                       :date_pass => Time.now.strftime('%d%m%y'))
 
