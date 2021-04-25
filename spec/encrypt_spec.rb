@@ -10,7 +10,8 @@ RSpec.describe 'Encrypt' do
   end
   describe '#new_encryption' do
     it 'returns a hash of with the encrypted string' do
-      encrypted_hash = Encrypt.new_encryption(message: 'Hello World',
+      encrypt = Encrypt.new
+      encrypted_hash = encrypt.new_encryption(message: 'Hello World',
                                               key: '02715',
                                               date: '040895')
 
@@ -19,14 +20,14 @@ RSpec.describe 'Encrypt' do
   end
   describe '#generate_offset' do
     it 'creates an offest for encryption' do
-
-      expect(Encrypt.generate_offset({})).to eq(a: 1, b: 2, c: 3, d: 4)
+      encrypt = Encrypt.new
+      expect(encrypt.generate_offset({})).to eq(a: 1, b: 2, c: 3, d: 4)
     end
   end
   describe '#generate_key' do
     it 'creates a key for encryption' do
-
-      actual = Encrypt.generate_key
+      encrypt = Encrypt.new
+      actual = encrypt.generate_key
 
       expect(actual.length).to eq(5)
       expect(actual.class).to eq(Array)
