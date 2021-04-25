@@ -27,12 +27,23 @@ RSpec.describe 'Decrypt' do
       expect(decrypted_hash[:decryption]).to eq('Hello World')
     end
   end
-  describe '#generate_key' do
-    it 'creates a key for encryption' do
-      actual = Decrypt.generate_key
+  describe '#generate_offset' do
+    it 'creates an offest for decryption' do
+      decrypt = Decrypt.new
 
-      expect(actual.length).to eq(5)
-      expect(actual.class).to eq(String)
+      expected = {0 => 2, 1 => 7, 2 => 24, 3 => 20}
+
+      expect(decrypt.generate_offset('02715', '040895')).to eq(expected)
+    end
+  end
+  describe '#letter_decryption' do
+    it 'uses an offset to decrypt characters in a message' do
+      decrypt = Decrypt.new
+      actual_decryption = decrypt.letter_decryption(message: 'jlieqgthtsa',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+
+      expect(actual_decryption.class).to eq(String)
+      expect(actual_decryption).to eq('hello world')
     end
   end
 end
