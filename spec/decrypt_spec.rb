@@ -45,5 +45,13 @@ RSpec.describe 'Decrypt' do
       expect(actual_decryption.class).to eq(String)
       expect(actual_decryption).to eq('hello world')
     end
+    it 'does not decrypt characters not in @alphabet' do
+      decrypt = Decrypt.new
+      actual_decryption = decrypt.letter_decryption(encryption: '^&%#)()',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+
+      expect(actual_decryption.class).to eq(String)
+      expect(actual_decryption).to eq('^&%#)()')
+    end
   end
 end
