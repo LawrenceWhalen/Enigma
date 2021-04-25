@@ -37,4 +37,11 @@ RSpec.describe 'Enigma' do
     #     Enigma.encrypt('Hello World!', '9', '240121')
     # end
   end
+  describe 'decrypt' do
+    it 'creates a decrypt instance' do
+      Enigma.decrypt('message', 'key', 'date')
+
+      expect(Enigma.instance_variable_get(:@decrypt.class)).to eq(Decrypt)
+    end
+  end
 end
