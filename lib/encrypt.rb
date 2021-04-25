@@ -9,7 +9,7 @@ class Encrypt
     offset = generate_offset(encryption_hash[:key_pass], encryption_hash[:date_pass])
     # require "pry"; binding.pry
     encrypted_message =  letter_substitution(offset: offset,
-                                             messsage: encryption_hash[:message_pass].downcase)
+                                             message: encryption_hash[:message_pass].downcase)
     {encryption: encrypted_message,
      key: encryption_hash[:key_pass],
      date: encryption_hash[:date_pass]}
@@ -18,6 +18,7 @@ class Encrypt
   def letter_substitution(substitution_hash)
     offset_hash = substitution_hash[:offset]
     offset_loop = 3
+    # require "pry"; binding.pry
     character_array = substitution_hash[:message].split.map do |character|
       if @alphabet.include?(character)
         character_location = @alphabet.find_index(character)
