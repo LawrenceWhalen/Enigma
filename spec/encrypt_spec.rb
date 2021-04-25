@@ -16,6 +16,7 @@ RSpec.describe 'Encrypt' do
                                               date_pass: '040895')
 
       expect(encrypted_hash.class).to eq(Hash)
+      expect(encrypted_hash[:encryption]).to eq('jlieqgthtsa')
     end
   end
   describe '#generate_offset' do
