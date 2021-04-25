@@ -10,10 +10,11 @@ RSpec.describe 'Enigma' do
   end
   describe '#encrypt' do
     it 'calls the encrypt class passing the arguments' do
-      Encrypt.any_instance.stub(:new_encryption).and_return(:"three arguments recieved")
+      Encrypt.any_instance.stub(:new_encryption).with(:key_pass => '01234',
+                                                      :message_pass => 'tim',
+                                                      :date_pass => '040895')
 
-
-      expect(Enigma.encrypt('Hello World!', '9')).to eq(:"three arguments recieved")
+      Enigma.encrypt('tim', '01234', '040895')
     end
     it 'creates a date if none is provided' do
       Encrypt.any_instance.stub(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
@@ -31,11 +32,20 @@ RSpec.describe 'Enigma' do
       Enigma.encrypt('tim')
     end
   end
-  describe 'decrypt' do
-    it 'creates a decrypt instance' do
-      Enigma.decrypt('message', 'key', 'date')
+  describe '#decrypt' do
+    it 'creates a decrypt instance and passes three arguments' do
+      Decrypt.any_instance.stub(:new_decryption).with(:key_pass => '01234',
+                                                      :encryption_pass => 'tim',
+                                                      :date_pass => '040895')
 
-      expect(Enigma.instance_variable_get(:@decrypt.class)).to eq(Decrypt)
+      Enigma.decrypt('tim', '01234', '040895')
+    end
+    it 'creates a decrypt instance and creates a date if none is passed' do
+      Decrypt.any_instance.stub(:new_decryption).with(:key_pass => '01234',
+                                                      :encryption_pass => 'tim',
+                                                      :date_pass => Time.now.strftime('%d%m%y'))
+
+      Enigma.decrypt('tim', '01234')
     end
   end
 end

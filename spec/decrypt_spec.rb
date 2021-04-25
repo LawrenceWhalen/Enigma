@@ -19,12 +19,12 @@ RSpec.describe 'Decrypt' do
   describe '#new_decryption' do
     it 'returns a hash of with the decrypted string' do
       decrypt = Decrypt.new
-      decrypted_hash = decrypt.new_decryption(message_pass: 'jlieqgthtsa',
+      decrypted_hash = decrypt.new_decryption(encryption_pass: 'jlieqgthtsa',
                                               key_pass: '02715',
                                               date_pass: '040895')
 
       expect(decrypted_hash.class).to eq(Hash)
-      expect(decrypted_hash[:decryption]).to eq('Hello World')
+      expect(decrypted_hash[:decryption]).to eq('hello world')
     end
   end
   describe '#generate_offset' do
@@ -39,7 +39,7 @@ RSpec.describe 'Decrypt' do
   describe '#letter_decryption' do
     it 'uses an offset to decrypt characters in a message' do
       decrypt = Decrypt.new
-      actual_decryption = decrypt.letter_decryption(message: 'jlieqgthtsa',
+      actual_decryption = decrypt.letter_decryption(encryption: 'jlieqgthtsa',
                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
 
       expect(actual_decryption.class).to eq(String)

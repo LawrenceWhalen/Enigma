@@ -16,7 +16,8 @@ class Enigma
   def self.decrypt(message,
                    key,
                    date = Time.now.strftime('%d%m%y'))
+                   
     @decryption = Decrypt.new
-    @decryption.new_dycryption(message_pass: message, key_pass: key, date_pass: date)
+    @decryption.new_decryption(encryption_pass: message, key_pass: key, date_pass: date)
   end
 end
