@@ -29,11 +29,10 @@ RSpec.describe 'Encrypt' do
   end
   describe '#generate_key' do
     it 'creates a key for encryption' do
-      encrypt = Encrypt.new
-      actual = encrypt.generate_key
+      actual = Encrypt.generate_key
 
       expect(actual.length).to eq(5)
-      expect(actual.class).to eq(Array)
+      expect(actual.class).to eq(String)
     end
   end
 end

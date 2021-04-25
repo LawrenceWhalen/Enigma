@@ -9,7 +9,7 @@ class Encrypt
     offset = generate_offset(encryption_hash[:key_pass], encryption_hash[:date_pass])
     # require "pry"; binding.pry
     encrypted_message =  letter_substitution(offset: offset,
-                                             messsage: encryption_hash[:message].downcase)
+                                             messsage: encryption_hash[:message_pass].downcase)
     {encryption: encrypted_message,
      key: encryption_hash[:key_pass],
      date: encryption_hash[:date_pass]}
@@ -30,10 +30,8 @@ class Encrypt
   end
 
   def generate_offset(key, offset)
-    # require "pry"; binding.pry
     squared_offset = (offset.to_i ** 2).to_s
     justified_key = key.rjust(5, "0")
-    # require "pry"; binding.pry
     {0 => ((justified_key[0] + justified_key[1]).to_i + offset[-4].to_i) % 28,
      1 => ((justified_key[1] + justified_key[2]).to_i + offset[-3].to_i) % 28,
      2 => ((justified_key[2] + justified_key[3]).to_i + offset[-2].to_i) % 28,
