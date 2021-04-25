@@ -21,15 +21,14 @@ RSpec.describe 'Enigma' do
 
       Enigma.encrypt('tim', '01234')
     end
-    # it 'creates a date if none is provided' do
-    #     encryption = double('encrypt')
-    #
-    #     allow(encryption).to receive(:new_encryption) {"three arguments recieved"}
-    #
-    #     expect(encryption).to recieve(:new_encryption)
-    #
-    #     Enigma.encrypt('Hello World!', '9', '240121')
-    # end
+    it 'creates a key and a date if none are provided' do
+      allow(Encrypt).to receive(:generate_key).and_return('99999')
+      Encrypt.any_instance.stub(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
+                                                      :key_pass => '99999',
+                                                      :message_pass => 'tim')
+
+      Enigma.encrypt('tim')
+    end
   end
   describe 'decrypt' do
     it 'creates a decrypt instance' do
