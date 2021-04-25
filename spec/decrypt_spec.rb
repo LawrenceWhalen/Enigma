@@ -27,4 +27,12 @@ RSpec.describe 'Decrypt' do
       expect(decrypted_hash[:decryption]).to eq('Hello World')
     end
   end
+  describe '#generate_key' do
+    it 'creates a key for encryption' do
+      actual = Decrypt.generate_key
+
+      expect(actual.length).to eq(5)
+      expect(actual.class).to eq(String)
+    end
+  end
 end
