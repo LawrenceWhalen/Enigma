@@ -2,12 +2,12 @@ require 'date'
 
 class Encrypt
   def initialize
-    @alphabet = ['a'..'z'].to_a << ' '
+    @alphabet = ('a'..'z').to_a << ' '
   end
 
   def new_encryption(encryption_hash)
     offset = generate_offset(encryption_hash[:key_pass], encryption_hash[:date_pass])
-    # require "pry"; binding.pry
+
     encrypted_message =  letter_substitution(offset: offset,
                                              message: encryption_hash[:message_pass].downcase)
     {encryption: encrypted_message,
@@ -18,16 +18,19 @@ class Encrypt
   def letter_substitution(substitution_hash)
     offset_hash = substitution_hash[:offset]
     offset_loop = 3
-    # require "pry"; binding.pry
-    character_array = substitution_hash[:message].split.map do |character|
+    character_array = []
+    substitution_hash[:message].split('').map do |character|
+
       if @alphabet.include?(character)
         character_location = @alphabet.find_index(character)
         offset_loop += 1
-        @alphabet.rotate(character_location)[offset_hash[offset_loop % 4]]
+        final = @alphabet.rotate(character_location)[offset_hash[offset_loop % 4]]
+        character_array.push(final)
       else
-        character
+        character_array.push(character)
       end
     end
+    character_array.join
   end
 
   def generate_offset(key, offset)
