@@ -6,13 +6,12 @@ class Encrypt
   end
 
   def new_encryption(encryption_hash)
-    offset = generate_offset(encryption_hash[:key_pass],
-                             encryption_hash[:date_pass])
+    offset = generate_offset(encryption_hash[:key_pass], encryption_hash[:date_pass])
 
     encrypted_message =  letter_substitution(offset: offset,
                                              message: encryption_hash[:message_pass].downcase)
     {encryption: encrypted_message,
-     key: encryption_hash[:key_pass].rjust(5, "0"),
+     key: encryption_hash[:key_pass],
      date: encryption_hash[:date_pass]}
   end
 

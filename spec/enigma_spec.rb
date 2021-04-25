@@ -12,6 +12,7 @@ RSpec.describe 'Enigma' do
     it 'calls the encrypt class passing the arguments' do
       Encrypt.any_instance.stub(:new_encryption).and_return(:"three arguments recieved")
 
+
       expect(Enigma.encrypt('Hello World!', '9')).to eq(:"three arguments recieved")
     end
     it 'creates a date if none is provided' do
