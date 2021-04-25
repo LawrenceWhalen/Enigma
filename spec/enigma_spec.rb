@@ -9,24 +9,18 @@ RSpec.describe 'Enigma' do
     end
   end
   describe '#encrypt' do
-    it 'calls the encrypt class passing the arguments returning a hash' do
-        actual = Enigma.encrypt('Hello World!', '02715', '040895')
+    it 'calls the encrypt class passing the arguments' do
+      Encrypt.any_instance.stub(:new_encryption).and_return(:"three arguments recieved")
 
-        expected = { encryption: 'jlieqgthtsa!',
-                     key: '02715',
-                     date: '040895'}
-
-        expect(actual).to eq(expected)
+      expect(Enigma.encrypt('Hello World!', '9')).to eq(:"three arguments recieved")
     end
-    # it 'creates a date if none is provided' do
-    #     encryption = double('encrypt')
-    #
-    #     allow(encryption).to receive(:new_encryption) {"three arguments recieved"}
-    #
-    #     expect(encryption).to receive(:new_encryption)
-    #
-    #     Enigma.encrypt('Hello World!', '9', '240121')
-    # end
+    it 'creates a date if none is provided' do
+      Encrypt.any_instance.stub(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
+                                                      :key_pass => '01234',
+                                                      :message_pass => 'tim')
+
+      Enigma.encrypt('tim', '01234')
+    end
     # it 'creates a date if none is provided' do
     #     encryption = double('encrypt')
     #
