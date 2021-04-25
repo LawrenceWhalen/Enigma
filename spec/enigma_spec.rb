@@ -18,15 +18,15 @@ RSpec.describe 'Enigma' do
 
         expect(actual).to eq(expected)
     end
-    it 'creates a date if none is provided' do
-        encryption = double('encrypt')
-
-        allow(encryption).to receive(:new_encryption) {"three arguments recieved"}
-
-        expect(encryption).to receive(:new_encryption)
-
-        Enigma.encrypt('Hello World!', '9', '240121')
-    end
+    # it 'creates a date if none is provided' do
+    #     encryption = double('encrypt')
+    #
+    #     allow(encryption).to receive(:new_encryption) {"three arguments recieved"}
+    #
+    #     expect(encryption).to receive(:new_encryption)
+    #
+    #     Enigma.encrypt('Hello World!', '9', '240121')
+    # end
     # it 'creates a date if none is provided' do
     #     encryption = double('encrypt')
     #
