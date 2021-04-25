@@ -1,14 +1,14 @@
-require './lib/decrypt'
+require './lib/decrypt_engine'
 
-RSpec.describe 'Decrypt' do
+RSpec.describe 'Decrypt_engine' do
   describe '#new' do
     it 'creates an instance of Decrypt' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
 
-      expect(decrypt.class).to eq(Decrypt)
+      expect(decrypt.class).to eq(DecryptEngine)
     end
     it 'creates an alphabet instance variable' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
 
       expected = ('a'..'z').to_a << ' '
       actual = (decrypt).instance_variable_get(:@alphabet)
@@ -18,7 +18,7 @@ RSpec.describe 'Decrypt' do
   end
   describe '#new_decryption' do
     it 'returns a hash of with the decrypted string' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
       decrypted_hash = decrypt.new_decryption(encryption_pass: 'jlieqgthtsa',
                                               key_pass: '02715',
                                               date_pass: '040895')
@@ -29,7 +29,7 @@ RSpec.describe 'Decrypt' do
   end
   describe '#generate_offset' do
     it 'creates an offest for decryption' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
 
       expected = {0 => 2, 1 => 7, 2 => 24, 3 => 20}
 
@@ -38,7 +38,7 @@ RSpec.describe 'Decrypt' do
   end
   describe '#letter_decryption' do
     it 'uses an offset to decrypt characters in a message' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
       actual_decryption = decrypt.letter_decryption(encryption: 'jlieqgthtsa',
                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
 
@@ -46,7 +46,7 @@ RSpec.describe 'Decrypt' do
       expect(actual_decryption).to eq('hello world')
     end
     it 'does not decrypt characters not in @alphabet' do
-      decrypt = Decrypt.new
+      decrypt = DecryptEngine.new
       actual_decryption = decrypt.letter_decryption(encryption: '^&%#)()',
                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
 

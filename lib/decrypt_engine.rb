@@ -1,4 +1,4 @@
-class Decrypt
+class DecryptEngine
   def initialize
     @alphabet = ('a'..'z').to_a << ' '
   end

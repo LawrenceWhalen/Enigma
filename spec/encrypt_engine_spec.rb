@@ -1,14 +1,14 @@
-require './lib/encrypt'
+require './lib/encrypt_engine'
 
-RSpec.describe 'Encrypt' do
+RSpec.describe 'EncryptEngine' do
   describe '#initialize' do
     it 'creates an instance of Encrypt' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
 
-      expect(encrypt.class).to eq(Encrypt)
+      expect(encrypt.class).to eq(EncryptEngine)
     end
     it 'creates an alphabet instance variable' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
 
       expected = ('a'..'z').to_a << ' '
       actual = (encrypt).instance_variable_get(:@alphabet)
@@ -18,7 +18,7 @@ RSpec.describe 'Encrypt' do
   end
   describe '#new_encryption' do
     it 'returns a hash of with the encrypted string' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
       encrypted_hash = encrypt.new_encryption(message_pass: 'Hello World',
                                               key_pass: '02715',
                                               date_pass: '040895')
@@ -29,7 +29,7 @@ RSpec.describe 'Encrypt' do
   end
   describe '#generate_offset' do
     it 'creates an offest for encryption' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
 
       expected = {0 => 2, 1 => 7, 2 => 24, 3 => 20}
 
@@ -38,7 +38,7 @@ RSpec.describe 'Encrypt' do
   end
   describe '#generate_key' do
     it 'creates a key for encryption' do
-      actual = Encrypt.generate_key
+      actual = EncryptEngine.generate_key
 
       expect(actual.length).to eq(5)
       expect(actual.class).to eq(String)
@@ -46,7 +46,7 @@ RSpec.describe 'Encrypt' do
   end
   describe '#letter_substitution' do
     it 'uses an offset to displace letters in a message' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
       actual_encryption = encrypt.letter_substitution(message: 'hello world',
                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
 
@@ -54,7 +54,7 @@ RSpec.describe 'Encrypt' do
       expect(actual_encryption).to eq('jlieqgthtsa')
     end
     it 'does not encrypt characters not present in @alphabet' do
-      encrypt = Encrypt.new
+      encrypt = EncryptEngine.new
       actual_encryption = encrypt.letter_substitution(message: '/?+=@#',
                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
 

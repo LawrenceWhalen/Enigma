@@ -1,6 +1,6 @@
 require 'date'
 
-class Encrypt
+class EncryptEngine
   def initialize
     @alphabet = ('a'..'z').to_a << ' '
   end
