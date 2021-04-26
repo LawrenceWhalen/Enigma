@@ -44,19 +44,21 @@ RSpec.describe 'EncryptEngine' do
       expect(actual.class).to eq(String)
     end
   end
-  describe '#letter_substitution' do
+  describe '#character_shuffle' do
     it 'uses an offset to displace letters in a message' do
       encrypt = EncryptEngine.new
-      actual_encryption = encrypt.letter_substitution(message: 'hello world',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+      actual_encryption = encrypt.character_shuffle(message: 'hello world',
+                                                    offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                                    crypt: 1)
 
       expect(actual_encryption.class).to eq(String)
       expect(actual_encryption).to eq('jlieqgthtsa')
     end
     it 'does not encrypt characters not present in @alphabet' do
       encrypt = EncryptEngine.new
-      actual_encryption = encrypt.letter_substitution(message: '/?+=@#',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+      actual_encryption = encrypt.character_shuffle(message: '/?+=@#',
+                                                    offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                                    crypt: 1)
 
       expect(actual_encryption.class).to eq(String)
       expect(actual_encryption).to eq('/?+=@#')
