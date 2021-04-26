@@ -1,4 +1,5 @@
 require './lib/enigma'
+require './lib/security'
 
 reader = File.open(ARGV[0], 'r')
 
