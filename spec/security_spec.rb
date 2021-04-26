@@ -1,6 +1,13 @@
 require './lib/security'
 
 RSpec.describe 'Security' do
+  describe '#new' do
+    it 'creates an instance of security' do
+      security = Security.new
+
+      expect(security.class).to eq(Security)
+    end
+  end
   describe '#check_input' do
     it 'calls on the three methods to check the input' do
       allow(Security).to receive(:messsage_check).and_return('Tim')
