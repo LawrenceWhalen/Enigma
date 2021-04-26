@@ -27,15 +27,6 @@ RSpec.describe 'EncryptEngine' do
       expect(encrypted_hash[:encryption]).to eq('jlieqgthtsa')
     end
   end
-  describe '#generate_offset' do
-    it 'creates an offest for encryption' do
-      encrypt = EncryptEngine.new
-
-      expected = [2, 7, 24, 20]
-
-      expect(encrypt.generate_offset('02715', '040895')).to eq(expected)
-    end
-  end
   describe '#character_shuffle' do
     it 'uses an offset to displace letters in a message' do
       encrypt = EncryptEngine.new
