@@ -39,7 +39,18 @@ RSpec.describe CrackEngine do
     it 'returns a key when passed a message sample, offset, and date' do
       crack = CrackEngine.new
       offset = ['22', '2', '2', '6']
-      cracked_key = crack.brute_force_key('f pf', offset, '260421')
+
+      actual = crack.brute_force_key('f pf', offset, '260421')
+    end
+  end
+  describe '#seperate_offset_date' do
+    it 'returns a modified offset array with date removed' do
+      crack = CrackEngine.new
+      offset = ['22', '2', '2', '6']
+
+      actual = crack.seperate_offset_date(offset, '260421')
+
+      expect(actual).to eq([15, 0, 30, 5])
     end
   end
 end
