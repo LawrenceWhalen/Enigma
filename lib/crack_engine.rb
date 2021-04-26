@@ -26,4 +26,15 @@ class CrackEngine
     end
     test = unshifted_offset.rotate(-1 * offset_start)
   end
+
+  def seperate_offset_date(offset, date)
+    date_offset = (date.to_i ** 2).to_s[-4..-1]
+    offset.map.with_index do |offset_int, index|
+      if offset_int.to_i >= date_offset[index].to_i
+        (offset_int.to_i - date_offset[index].to_i)
+      else
+        ((date_offset[index].to_i - offset_int.to_i) + 28)
+      end
+    end
+  end
 end
