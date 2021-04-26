@@ -66,29 +66,39 @@ RSpec.describe 'Security' do
       expect(actual).to eq(true)
     end
     it 'exits if the passed date is not a string' do
-
-      expect{Security.date_check(010121)}.to raise_error(SystemExit)
-
+      expect {
+        begin Security.date_check(010121)
+        rescue SystemExit
+        end
+      }.to output('The date was passed incorrectly!').to_stdout
     end
     it 'exits if the passed date is not a number' do
-
-      expect{Security.date_check('P10121')}.to raise_error(SystemExit)
-
+      expect {
+        begin Security.date_check('01012p')
+        rescue SystemExit
+        end
+      }.to output('The date includes excluded characters.').to_stdout
     end
     it 'exits if the passed date is too long' do
-
-      expect{Security.date_check('0101211')}.to raise_error(SystemExit)
-
+      expect {
+        begin Security.date_check('0101222')
+        rescue SystemExit
+        end
+      }.to output('The date is improperly formatted.').to_stdout
     end
-    it 'exits if the passed month is incorrectly formatted' do
-
-      expect{Security.date_check('011321')}.to raise_error(SystemExit)
-
+    it 'exits if the date is incorrectly formatted' do
+      expect {
+        begin Security.date_check('123122')
+        rescue SystemExit
+        end
+      }.to output('The date is improperly formatted, or a bad date.').to_stdout
     end
-    it 'exits if the passed day is impossible for the month' do
-
-      expect{Security.date_check('300221')}.to raise_error(SystemExit)
-
+    it 'exits if the date is impossible' do
+      expect {
+        begin Security.date_check('341222')
+        rescue SystemExit
+        end
+      }.to output('The date is improperly formatted, or a bad date.').to_stdout
     end
   end
 end
