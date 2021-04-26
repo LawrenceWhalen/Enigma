@@ -35,6 +35,13 @@ RSpec.describe CrackEngine do
       expect(cracked_offset).to eq(['22', '2', '2', '6'])
     end
   end
+  describe 'brute_force_key' do
+    it 'returns a key when passed a message sample, offset, and date' do
+      crack = CrackEngine.new
+      offset = ['22', '2', '2', '6']
+      cracked_key = crack.brute_force_key('f pf', offset, '260421')
+    end
+  end
 end
 # ' end'
 # 'f pf'
