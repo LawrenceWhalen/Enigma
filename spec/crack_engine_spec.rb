@@ -32,7 +32,7 @@ RSpec.describe CrackEngine do
       crack = CrackEngine.new
       cracked_offset = crack.offset_decode(27, 'f pf', '260421')
 
-      expect(cracked_offset).to eq([22, 2, 2, 6])
+      expect(cracked_offset).to eq(['22', '2', '2', '6'])
     end
   end
 end
