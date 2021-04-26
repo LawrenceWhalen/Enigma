@@ -32,18 +32,18 @@ RSpec.describe 'Enigma' do
       Enigma.encrypt('tim')
     end
     it 'calls a security check passing all parameters' do
-      allow_any_instance_of(Security).to receive(:check_input).with(:message => 'tim',
-                                                                    :key => '01234',
-                                                                    :date => '040895')
+      allow(Security).to receive(:check_input).with(:message => 'tim',
+                                                    :key => '01234',
+                                                    :date => '040895')
 
-      Enigma.decrypt('tim', '01234', '040895')
+      Enigma.encrypt('tim', '01234', '040895')
     end
   end
   describe '#decrypt' do
     it 'calls a security check passing all parameters' do
-      allow_any_instance_of(Security).to receive(:check_input).with(:message => 'tim',
-                                                                    :key => '01234',
-                                                                    :date => '040895')
+      allow(Security).to receive(:check_input).with(:message => 'tim',
+                                                    :key => '01234',
+                                                    :date => '040895')
 
       Enigma.decrypt('tim', '01234', '040895')
     end
