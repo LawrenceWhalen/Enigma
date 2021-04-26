@@ -36,19 +36,21 @@ RSpec.describe 'Decrypt_engine' do
       expect(decrypt.generate_offset('02715', '040895')).to eq(expected)
     end
   end
-  describe '#letter_decryption' do
+  describe '#character_shuffle' do
     it 'uses an offset to decrypt characters in a message' do
       decrypt = DecryptEngine.new
-      actual_decryption = decrypt.letter_decryption(encryption: 'jlieqgthtsa',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+      actual_decryption = decrypt.character_shuffle(message: 'jlieqgthtsa',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                              crypt: -1)
 
       expect(actual_decryption.class).to eq(String)
       expect(actual_decryption).to eq('hello world')
     end
     it 'does not decrypt characters not in @alphabet' do
       decrypt = DecryptEngine.new
-      actual_decryption = decrypt.letter_decryption(encryption: '^&%#)()',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20})
+      actual_decryption = decrypt.character_shuffle(message: '^&%#)()',
+                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                              crypt: -1)
 
       expect(actual_decryption.class).to eq(String)
       expect(actual_decryption).to eq('^&%#)()')
