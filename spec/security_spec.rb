@@ -10,13 +10,20 @@ RSpec.describe 'Security' do
   end
   describe '#check_input' do
     it 'calls on the three methods to check the input' do
-      allow(Security).to receive(:messsage_check).and_return('Tim')
+      allow(Security).to receive(:message_check).and_return('Tim')
       allow(Security).to receive(:offset_check).and_return('90341')
       allow(Security).to receive(:messsage_check).and_return('240185')
 
-      actual = Security.check_input('Tim', '90341', '240185')
+      actual = Security.check_input(message: 'Tim',offset: '90341',date: '240185')
 
       expect(actual).to eq(message: 'Tim', key: '90341', date: '240185')
+    end
+  end
+  describe '#message_check' do
+    it 'ensures that the passed message is a string' do
+      actual = Security.message_check('Time Seen')
+
+      expect(actual).to eq('Time Seen')
     end
   end
 end
