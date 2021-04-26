@@ -24,7 +24,7 @@ RSpec.describe 'Enigma' do
       Enigma.encrypt('tim', '01234')
     end
     it 'creates a key and a date if none are provided' do
-      allow(EncryptEngine).to receive(:generate_key).and_return('99999')
+      allow(Enigma).to receive(:generate_key).and_return('99999')
       allow_any_instance_of(EncryptEngine).to receive(:new_encryption).with(:date_pass => Time.now.strftime('%d%m%y'),
                                                       :key_pass => '99999',
                                                       :message_pass => 'tim')
@@ -46,6 +46,14 @@ RSpec.describe 'Enigma' do
                                                       :date_pass => Time.now.strftime('%d%m%y'))
 
       Enigma.decrypt('tim', '01234')
+    end
+  end
+  describe '#generate_key' do
+    it 'creates a key for encryption' do
+      actual = Enigma.generate_key
+
+      expect(actual.length).to eq(5)
+      expect(actual.class).to eq(String)
     end
   end
 end

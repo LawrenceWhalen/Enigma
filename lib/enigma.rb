@@ -6,7 +6,7 @@ class Enigma
   end
 
   def self.encrypt(message,
-                   key = EncryptEngine.generate_key,
+                   key = Enigma.generate_key,
                    date = Time.now.strftime('%d%m%y'))
 
 
@@ -19,5 +19,12 @@ class Enigma
 
     @decryption = DecryptEngine.new
     @decryption.new_decryption(encryption_pass: message, key_pass: key, date_pass: date)
+  end
+  def self.generate_key
+    random_key = []
+    5.times do
+      random_key.push((0..9).to_a.sample)
+    end
+    random_key.join
   end
 end

@@ -36,14 +36,6 @@ RSpec.describe 'EncryptEngine' do
       expect(encrypt.generate_offset('02715', '040895')).to eq(expected)
     end
   end
-  describe '#generate_key' do
-    it 'creates a key for encryption' do
-      actual = EncryptEngine.generate_key
-
-      expect(actual.length).to eq(5)
-      expect(actual.class).to eq(String)
-    end
-  end
   describe '#character_shuffle' do
     it 'uses an offset to displace letters in a message' do
       encrypt = EncryptEngine.new

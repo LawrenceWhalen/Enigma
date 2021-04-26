@@ -17,12 +17,4 @@ class EncryptEngine
      key: encryption_hash[:key_pass],
      date: encryption_hash[:date_pass]}
   end
-  
-  def self.generate_key
-    random_key = []
-    5.times do
-      random_key.push((0..9).to_a.sample)
-    end
-    random_key.join
-  end
 end
