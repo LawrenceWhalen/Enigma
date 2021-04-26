@@ -31,7 +31,7 @@ RSpec.describe 'EncryptEngine' do
     it 'creates an offest for encryption' do
       encrypt = EncryptEngine.new
 
-      expected = {0 => 2, 1 => 7, 2 => 24, 3 => 20}
+      expected = [2, 7, 24, 20]
 
       expect(encrypt.generate_offset('02715', '040895')).to eq(expected)
     end
