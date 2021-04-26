@@ -10,20 +10,14 @@ module EngineModule
   end
   def character_shuffle(cryption_hash)
     offset_hash = cryption_hash[:offset]
-    offset_loop = 3
-    character_array = []
-    #map_with_index
-    cryption_hash[:message].split('').map do |character|
+    cryption_hash[:message].split('').map.with_index do |character, index|
       if @alphabet.include?(character)
         character_location = @alphabet.find_index(character)
-        offset_loop += 1
-        offset_index = cryption_hash[:crypt] * (offset_hash[offset_loop % 4])
-        final = @alphabet.rotate(character_location)[offset_index]
-        character_array.push(final)
+        offset_index = cryption_hash[:crypt] * (offset_hash[index % 4])
+        @alphabet.rotate(character_location)[offset_index]
       else
-        character_array.push(character)
+        character
       end
-    end
-    character_array.join
+    end.join
   end
 end
