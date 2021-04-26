@@ -2,6 +2,7 @@ module EngineModule
   def generate_offset(key, offset)
     squared_offset = (offset.to_i ** 2).to_s
     justified_key = key.rjust(5, "0")
+    #likely be an array
     {0 => ((justified_key[0] + justified_key[1]).to_i + offset[-4].to_i) % 28,
      1 => ((justified_key[1] + justified_key[2]).to_i + offset[-3].to_i) % 28,
      2 => ((justified_key[2] + justified_key[3]).to_i + offset[-2].to_i) % 28,
@@ -11,6 +12,7 @@ module EngineModule
     offset_hash = cryption_hash[:offset]
     offset_loop = 3
     character_array = []
+    #map_with_index
     cryption_hash[:message].split('').map do |character|
       if @alphabet.include?(character)
         character_location = @alphabet.find_index(character)
