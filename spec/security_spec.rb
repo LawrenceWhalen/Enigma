@@ -59,36 +59,36 @@ RSpec.describe 'Security' do
       }.to output('The key is too long!').to_stdout
     end
   end
-  # describe '#date_check' do
-  #   it 'ensures the date is correctly formatted' do
-  #     actual = Security.date_check('010121')
-  #
-  #     expect(actual).to eq(true)
-  #   end
-  #   it 'exits if the passed date is not a string' do
-  #
-  #     expect{Security.date_check(010121)}.to raise_error(SystemExit)
-  #
-  #   end
-  #   it 'exits if the passed date is not a number' do
-  #
-  #     expect{Security.date_check('P10121')}.to raise_error(SystemExit)
-  #
-  #   end
-  #   it 'exits if the passed date is too long' do
-  #
-  #     expect{Security.date_check('0101211')}.to raise_error(SystemExit)
-  #
-  #   end
-  #   it 'exits if the passed month is incorrectly formatted' do
-  #
-  #     expect{Security.date_check('011321')}.to raise_error(SystemExit)
-  #
-  #   end
-  #   it 'exits if the passed day is impossible for the month' do
-  #
-  #     expect{Security.date_check('300221')}.to raise_error(SystemExit)
-  #
-  #   end
-  # end
+  describe '#date_check' do
+    it 'ensures the date is correctly formatted' do
+      actual = Security.date_check('010121')
+
+      expect(actual).to eq(true)
+    end
+    it 'exits if the passed date is not a string' do
+
+      expect{Security.date_check(010121)}.to raise_error(SystemExit)
+
+    end
+    it 'exits if the passed date is not a number' do
+
+      expect{Security.date_check('P10121')}.to raise_error(SystemExit)
+
+    end
+    it 'exits if the passed date is too long' do
+
+      expect{Security.date_check('0101211')}.to raise_error(SystemExit)
+
+    end
+    it 'exits if the passed month is incorrectly formatted' do
+
+      expect{Security.date_check('011321')}.to raise_error(SystemExit)
+
+    end
+    it 'exits if the passed day is impossible for the month' do
+
+      expect{Security.date_check('300221')}.to raise_error(SystemExit)
+
+    end
+  end
 end
