@@ -13,27 +13,60 @@ class CrackEngine
   end
 
   def new_crack(crack_hash)
-    crack_hash[:message_pass]
-    crack_hash[:date_pass]
+    message = crack_hash[:message_pass]
+    date = crack_hash[:date_pass]
+
+    offset = offset_decode(message.length, message[-4..-1])
+    decrypted_message = character_shuffle(message: message, offset: offset, crypt: -1)
+    key_new = brute_force_key(offset, date)
+    key_final = [key_new[0], key_new[2], key_new[3][1]].join
 
     {decryption: decrypted_message,
-     key: '',
-     date: crack_hash[:date_pass]}
+     key: key_final,
+     date: date}
   end
 
   def offset_decode(message_length, last_four)
     offset_start = message_length % 4
     unshifted_offset = last_four.split('').map.with_index do |character, index|
-      @alphabet_array[index].find_index(character).to_s
+      @alphabet_array[index].find_index(character)
     end
-    test = unshifted_offset.rotate(-1 * offset_start)
+    unshifted_offset.rotate(-1 * offset_start)
   end
 
   def brute_force_key(s_offset, date)
     date_offset = (date.to_i ** 2).to_s[-4..-1]
-    s_offset.map.with_index do |offset, index|
+    all_possible = s_offset.map.with_index do |offset, index|
       map_possible(offset, date_offset[index])
     end
+    force_array = []
+    all_possible[0].map.with_index do |key, index|
+      if key[1] == all_possible[1][index][0]
+        force_array.push([key, all_possible[1][index]])
+      end
+    end
+    force_array_two = []
+    repeat = force_array.length
+    repeat.times.with_index do |index_1|
+      all_possible[2].map do |key|
+        if key[0] == force_array[index_1][1][1]
+          force_array_two.push([force_array[index_1][0], force_array[index_1][1], key])
+        end
+      end
+    end
+    force_array_three = []
+    repeat_2 = force_array_two.length
+    repeat_2.times.with_index do |index_1|
+      all_possible[3].map.with_index do |key, index_2|
+        if key[0] == force_array_two[index_1][2][1]
+          force_array_three.push([force_array_two[index_1][0],
+                                  force_array_two[index_1][1],
+                                  force_array_two[index_1][2],
+                                  key])
+        end
+      end
+    end
+    force_array_three[0]
   end
 
   def map_possible(single_offset, date_chunk)
