@@ -19,7 +19,7 @@ RSpec.describe 'Decrypt_engine' do
   describe '#new_decryption' do
     it 'returns a hash of with the decrypted string' do
       decrypt = DecryptEngine.new
-      decrypted_hash = decrypt.new_decryption(encryption_pass: 'jlieqgthtsa',
+      decrypted_hash = decrypt.new_decryption(encryption_pass: 'jmkeqhvhttc',
                                               key_pass: '02715',
                                               date_pass: '040895')
 
@@ -31,7 +31,7 @@ RSpec.describe 'Decrypt_engine' do
     it 'creates an offest for decryption' do
       decrypt = DecryptEngine.new
 
-      expected = [2, 7, 24, 20]
+      expected = [2, 8, 26, 20]
 
       expect(decrypt.generate_offset('02715', '040895')).to eq(expected)
     end
@@ -39,8 +39,8 @@ RSpec.describe 'Decrypt_engine' do
   describe '#character_shuffle' do
     it 'uses an offset to decrypt characters in a message' do
       decrypt = DecryptEngine.new
-      actual_decryption = decrypt.character_shuffle(message: 'jlieqgthtsa',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+      actual_decryption = decrypt.character_shuffle(message: 'jmkeqhvhttc',
+                                              offset: [2, 8, 26, 20],
                                               crypt: -1)
 
       expect(actual_decryption.class).to eq(String)
@@ -49,7 +49,7 @@ RSpec.describe 'Decrypt_engine' do
     it 'does not decrypt characters not in @alphabet' do
       decrypt = DecryptEngine.new
       actual_decryption = decrypt.character_shuffle(message: '^&%#)()',
-                                              offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                              offset: [2, 8, 26, 20],
                                               crypt: -1)
 
       expect(actual_decryption.class).to eq(String)
