@@ -24,23 +24,35 @@ RSpec.describe 'EncryptEngine' do
                                               date_pass: '040895')
 
       expect(encrypted_hash.class).to eq(Hash)
-      expect(encrypted_hash[:encryption]).to eq('jlieqgthtsa')
+      expect(encrypted_hash[:encryption]).to eq('jmkeqhvhttc')
+    end
+  end
+  describe '#generate_offset' do
+    it 'creates an offest for decryption' do
+      encrypt = EncryptEngine.new
+
+      expected = [2, 8, 26, 20]
+
+      expect(encrypt.generate_offset('02715', '040895')).to eq(expected)
     end
   end
   describe '#character_shuffle' do
     it 'uses an offset to displace letters in a message' do
       encrypt = EncryptEngine.new
-      actual_encryption = encrypt.character_shuffle(message: 'hello world',
-                                                    offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
-                                                    crypt: 1)
+      # actual_encryption = encrypt.character_shuffle(message: 'hello world',
+      #                                               offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+      #                                               crypt: 1)
 
+      actual_encryption = encrypt.character_shuffle(message: 'HELLO WORLD THIS IS THE end'.downcase,
+                                                    offset: [20, 6, 7, 20],
+                                                    crypt: 1)
       expect(actual_encryption.class).to eq(String)
-      expect(actual_encryption).to eq('jlieqgthtsa')
+      expect(actual_encryption[-4..-1]).to eq('tytk')
     end
     it 'does not encrypt characters not present in @alphabet' do
       encrypt = EncryptEngine.new
       actual_encryption = encrypt.character_shuffle(message: '/?+=@#',
-                                                    offset: {0 => 2, 1 => 7, 2 => 24, 3 => 20},
+                                                    offset: [2, 7, 24, 20],
                                                     crypt: 1)
 
       expect(actual_encryption.class).to eq(String)

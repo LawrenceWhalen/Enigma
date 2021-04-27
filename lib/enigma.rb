@@ -8,7 +8,7 @@ class Enigma
   def self.encrypt(message,
                    key = Enigma.generate_key,
                    date = Time.now.strftime('%d%m%y'))
-                   
+
     Security.check_input(message: message, key: key, date: date)
     @encryption = EncryptEngine.new
     @encryption.new_encryption(message_pass: message, key_pass: key, date_pass: date)

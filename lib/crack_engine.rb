@@ -8,6 +8,8 @@ class CrackEngine
                        (('a'..'z').to_a << ' ').rotate!(4),
                        (('a'..'z').to_a << ' ').rotate!(13),
                        (('a'..'z').to_a << ' ').rotate!(3)]
+
+    @alphabet = ('a'..'z').to_a << ' '
   end
 
   def new_crack(crack_hash)
@@ -19,7 +21,7 @@ class CrackEngine
      date: crack_hash[:date_pass]}
   end
 
-  def offset_decode(message_length, last_four, date)
+  def offset_decode(message_length, last_four)
     offset_start = message_length % 4
     unshifted_offset = last_four.split('').map.with_index do |character, index|
       @alphabet_array[index].find_index(character).to_s
@@ -33,8 +35,25 @@ class CrackEngine
       if offset_int.to_i >= date_offset[index].to_i
         (offset_int.to_i - date_offset[index].to_i)
       else
-        ((date_offset[index].to_i - offset_int.to_i) + 28)
+        (offset_int.to_i + 27) - date_offset[index].to_i
       end
     end
+  end
+
+  def brute_force_key(s_offset)
+    test = s_offset.map do |offset|
+      map_possible(offset)
+    end
+
+  end
+
+  def map_possible(start)
+    guess_array = []
+    calculated = start
+    until calculated > 100
+      guess_array.push(calculated.to_s.rjust(2, '0'))
+      calculated += 28
+    end
+    guess_array
   end
 end
