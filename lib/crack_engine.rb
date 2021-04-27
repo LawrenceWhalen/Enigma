@@ -13,7 +13,7 @@ class CrackEngine
   end
 
   def new_crack(crack_hash)
-    message = crack_hash[:message_pass]
+    message = crack_hash[:message_pass].chomp
     date = crack_hash[:date_pass]
 
     offset = offset_decode(message.length, message[-4..-1])
@@ -40,9 +40,11 @@ class CrackEngine
       map_possible(offset, date_offset[index])
     end
     force_array = []
-    all_possible[0].map.with_index do |key, index|
-      if key[1] == all_possible[1][index][0]
-        force_array.push([key, all_possible[1][index]])
+    all_possible[0].map do |key_one|
+      all_possible[1].map do |key_two|
+        if key_one[1] == key_two[0]
+          force_array.push([key_one, key_two])
+        end
       end
     end
     force_array_two = []
