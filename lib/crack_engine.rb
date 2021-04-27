@@ -29,30 +29,37 @@ class CrackEngine
     test = unshifted_offset.rotate(-1 * offset_start)
   end
 
-  def seperate_offset_date(offset, date)
+  # def seperate_offset_date(offset, date)
+  #   date_offset = (date.to_i ** 2).to_s[-4..-1]
+  #   offset.map.with_index do |offset_int, index|
+  #     if offset_int.to_i >= date_offset[index].to_i
+  #       (offset_int.to_i - date_offset[index].to_i)
+  #     else
+  #       (offset_int.to_i + 27) - date_offset[index].to_i
+  #     end
+  #   end
+  # end
+
+  def brute_force_key(s_offset, date)
     date_offset = (date.to_i ** 2).to_s[-4..-1]
-    offset.map.with_index do |offset_int, index|
-      if offset_int.to_i >= date_offset[index].to_i
-        (offset_int.to_i - date_offset[index].to_i)
-      else
-        (offset_int.to_i + 27) - date_offset[index].to_i
-      end
+    s_offset.map.with_index do |offset, index|
+      map_possible(offset, date_offset[index])
     end
   end
 
-  def brute_force_key(s_offset)
-    test = s_offset.map do |offset|
-      map_possible(offset)
-    end
-
-  end
-
-  def map_possible(start)
+  def map_possible(single_offset, date_chunk)
     guess_array = []
-    calculated = start
-    until calculated > 100
-      guess_array.push(calculated.to_s.rjust(2, '0'))
-      calculated += 28
+    calculated = single_offset.to_i
+    calculated_min = calculated - 27
+    until calculated_min < 0
+      guess_min = calculated_min - date_chunk.to_i
+      guess_array.push(guess_chunk.to_s.rjust(2, '0')) unless guess_min < 0
+      calculated_min -= 27
+    end
+    until calculated > 109
+      guess_max = calculated - date_chunk.to_i
+      guess_array.push(guess_max.to_s.rjust(2, '0')) unless guess_max.to_i > 99
+      calculated += 27
     end
     guess_array
   end
