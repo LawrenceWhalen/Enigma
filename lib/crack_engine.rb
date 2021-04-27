@@ -29,17 +29,6 @@ class CrackEngine
     test = unshifted_offset.rotate(-1 * offset_start)
   end
 
-  # def seperate_offset_date(offset, date)
-  #   date_offset = (date.to_i ** 2).to_s[-4..-1]
-  #   offset.map.with_index do |offset_int, index|
-  #     if offset_int.to_i >= date_offset[index].to_i
-  #       (offset_int.to_i - date_offset[index].to_i)
-  #     else
-  #       (offset_int.to_i + 27) - date_offset[index].to_i
-  #     end
-  #   end
-  # end
-
   def brute_force_key(s_offset, date)
     date_offset = (date.to_i ** 2).to_s[-4..-1]
     s_offset.map.with_index do |offset, index|

@@ -45,25 +45,14 @@ RSpec.describe CrackEngine do
       expect(actual).to eq(9)
     end
   end
-  # describe '#seperate_offset_date' do
-  #   it 'returns a modified offset array with date removed' do
-  #     crack = CrackEngine.new
-  #     offset = ['24', '9', '9', '12']
-  #
-  #     actual = crack.seperate_offset_date(offset, '260421')
-  #
-  #
-  #     expect(actual).to eq([17, 7, 5, 11])
-  #   end
-  # end
-  # describe '#map_possible' do
-  #   it 'returns an array of all possible numbers for an offset' do
-  #     crack = CrackEngine.new
-  #
-  #     actual = crack.map_possible('24', '7')
-  #
-  #
-  #     expect(actual).to eq([])
-  #   end
-  # end
+  describe '#map_possible' do
+    it 'returns an array of all possible numbers for an offset' do
+      crack = CrackEngine.new
+
+      actual = crack.map_possible('24', '7')
+
+
+      expect(actual).to eq([])
+    end
+  end
 end
