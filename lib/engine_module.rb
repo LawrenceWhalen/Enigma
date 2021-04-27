@@ -2,10 +2,10 @@ module EngineModule
   def generate_offset(key, date)
     squared_date = (date.to_i ** 2).to_s
     justified_key = key.rjust(5, "0")
-    [((justified_key[0] + justified_key[1]).to_i + date[-4].to_i) % 27,
-     ((justified_key[1] + justified_key[2]).to_i + date[-3].to_i) % 27,
-     ((justified_key[2] + justified_key[3]).to_i + date[-2].to_i) % 27,
-     ((justified_key[3] + justified_key[4]).to_i + date[-1].to_i) % 27]
+    [((justified_key[0] + justified_key[1]).to_i + squared_date[-4].to_i) % 27,
+     ((justified_key[1] + justified_key[2]).to_i + squared_date[-3].to_i) % 27,
+     ((justified_key[2] + justified_key[3]).to_i + squared_date[-2].to_i) % 27,
+     ((justified_key[3] + justified_key[4]).to_i + squared_date[-1].to_i) % 27]
   end
   def character_shuffle(cryption_hash)
     offset_array = cryption_hash[:offset]

@@ -24,14 +24,14 @@ RSpec.describe 'EncryptEngine' do
                                               date_pass: '040895')
 
       expect(encrypted_hash.class).to eq(Hash)
-      expect(encrypted_hash[:encryption]).to eq('jmkeqhvhttc')
+      expect(encrypted_hash[:encryption]).to eq('keder ohulw')
     end
   end
   describe '#generate_offset' do
     it 'creates an offest for decryption' do
       encrypt = EncryptEngine.new
 
-      expected = [2, 8, 26, 20]
+      expected = [3, 0, 19, 20]
 
       expect(encrypt.generate_offset('02715', '040895')).to eq(expected)
     end

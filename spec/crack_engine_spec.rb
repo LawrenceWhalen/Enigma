@@ -8,52 +8,50 @@ RSpec.describe CrackEngine do
       expect(crack.class).to eq(CrackEngine)
     end
   end
-  # describe '#new_crack' do
-  #   it 'returns cracked message' do
-  #     crack = CrackEngine.new
-  #     cracked_hash = crack.new_crack(message_pass: 'jlieqgthtsa',
-  #                                    date: '040895')
-  #
-  #     expect(cracked_hash.class).to eq(Hash)
-  #     expect(cracked_hash[:message]).to eq('Hello World')
-  #   end
-  #   it 'returns the key to decode the message' do
-  #     crack = CrackEngine.new
-  #     cracked_hash = crack.new_crack(message_pass: 'jlieqgthtsa',
-  #                                    date: '040895')
-  #
-  #     decrypt_test = Enigma.decrypt('jlieqgthtsa', cracked_hash[:key], '040895')
-  #
-  #     expect(decrypt_test[:decryption]).to eq('Hello World')
-  #   end
-  # end
+  describe '#new_crack' do
+    it 'returns cracked message' do
+      crack = CrackEngine.new
+      cracked_hash = crack.new_crack(message_pass: 'qnevxipy uxjbqbbirljbqyjnwx',
+                                     date_pass: '260421')
+
+      expect(cracked_hash.class).to eq(Hash)
+      expect(cracked_hash[:decryption]).to eq('hello world this is the end')
+    end
+    it 'returns the key to decode the message' do
+      crack = CrackEngine.new
+      cracked_hash = crack.new_crack(message_pass: 'qnevxipy uxjbqbbirljbqyjnwx',
+                                     date_pass: '260421')
+
+      expect(cracked_hash.class).to eq(Hash)
+      expect(cracked_hash[:key]).to eq('56163')
+    end
+  end
   describe '#offset_decode' do
     it 'takes a message chunck to decode the offset' do
       crack = CrackEngine.new
-      cracked_offset = crack.offset_decode(27, 'krgg')
+      cracked_offset = crack.offset_decode(27, 'lbwm')
 
-      expect(cracked_offset).to eq(['13', '20', '3', '11'])
+      expect(cracked_offset).to eq([24, 9, 9, 12])
     end
   end
   describe 'brute_force_key' do
     it 'returns a key when passed a message sample, offset, and date' do
       crack = CrackEngine.new
-      offset = [6, 18, 26, 10]
+      offset = ['24', '9', '9', '12']
 
-      actual = crack.brute_force_key(offset)
+      actual = crack.brute_force_key(offset, '260421')
 
-      expect(actual).to eq(9)
+      expect(actual).to eq(["98", "88", "86", "65"])
     end
   end
-  describe '#seperate_offset_date' do
-    it 'returns a modified offset array with date removed' do
+  describe '#map_possible' do
+    it 'returns an array of all possible numbers for an offset' do
       crack = CrackEngine.new
-      offset = ['13', '20', '3', '11']
 
-      actual = crack.seperate_offset_date(offset, '260421')
-      require "pry"; binding.pry
+      actual = crack.map_possible('24', '7')
 
-      expect(actual).to eq([6, 18, 26, 10])
+
+      expect(actual).to eq(["17", "44", "71", "98"])
     end
   end
 end

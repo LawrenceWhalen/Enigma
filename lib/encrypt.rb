@@ -7,7 +7,8 @@ unecrypted_text = reader.read
 
 reader.close
 
-encrypted_hash = Enigma.encrypt(unecrypted_text)
+enigma = Enigma.new
+encrypted_hash = enigma.encrypt(unecrypted_text)
 
 writer = File.open(ARGV[1], 'w')
 
