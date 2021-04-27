@@ -53,5 +53,33 @@ RSpec.describe CrackEngine do
 
       expect(actual).to eq(["17", "44", "71", "98"])
     end
+    it 'returns an array of all possible numbers for a large offset' do
+      crack = CrackEngine.new
+
+      actual = crack.map_possible('33', '7')
+
+
+      expect(actual).to eq(["26", "53", "80"])
+    end
+  end
+  describe '#generate_offset' do
+    it 'creates an offest for decryption' do
+      crack = CrackEngine.new
+
+      expected = [3, 0, 19, 20]
+
+      expect(crack.generate_offset('02715', '040895')).to eq(expected)
+    end
+  end
+  describe '#character_shuffle' do
+    it 'uses an offset to decrypt characters in a message' do
+      crack = CrackEngine.new
+      actual_decryption = crack.character_shuffle(message: 'keder ohulw',
+                                              offset: [3, 0, 19, 20],
+                                              crypt: -1)
+
+      expect(actual_decryption.class).to eq(String)
+      expect(actual_decryption).to eq('hello world')
+    end
   end
 end
